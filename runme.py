@@ -44,6 +44,9 @@ if __name__ == "__main__":
     autorepoter = Report(stuid=args.stuid, password=args.password)
     count = 5
     while count != 0:
+        if autorepoter.getstate() != '在校':
+            print("WRONG STATE")
+            exit(0)
         if (autorepoter.report(report_data)
                 & autorepoter.upload_code()
                 & autorepoter.cross_campus(cross_campus_data)

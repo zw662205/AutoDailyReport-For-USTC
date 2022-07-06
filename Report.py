@@ -22,6 +22,14 @@ class Report(object):
         self.login = Login(self.stuid, self.password,
                            "https://weixine.ustc.edu.cn/2020/caslogin")
 
+    def getstate(self):
+        if self.login.login():
+            data = self.login.result.text
+            soup = BeautifulSoup(data, "html.parser")
+            return soup.find("p", {"style":"margin: 5px -10px 0;"}).contents[1].contents[0]
+        print("login failed")
+        return False
+
     def report(self, report_data):
         if self.login.login():
             data = self.login.result.text
